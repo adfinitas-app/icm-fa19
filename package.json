@@ -1,0 +1,56 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "desc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:scripts": "wp-scripts build",
+    "start-build": "wp-scripts start"
+  },
+  "author": "pierre",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/register": "^7.5.5",
+    "@wordpress/scripts": "4.1.0",
+    "ansi-colors": "^4.1.1",
+    "autoprefixer": "^9.5.1",
+    "babel-polyfill": "^6.26.0",
+    "browser-sync": "^2.26.5",
+    "del": "^4.1.0",
+    "foundation-sites": "^6.5.3",
+    "gulp": "^4.0.1",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-cache": "^1.1.1",
+    "gulp-cheerio": "^0.6.3",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-newer": "^1.4.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-pxtorem": "^3.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sass-bulk-import": "^1.0.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-svgmin": "^2.2.0",
+    "gulp-svgstore": "^7.0.1",
+    "gulp-uglify": "^3.0.2",
+    "lazypipe": "^1.0.2",
+    "merge-stream": "^2.0.0",
+    "postcss-pxtorem": "^4.0.1",
+    "yargs": "^13.2.2"
+  },
+  "dependencies": {
+    "gulp-clean-css": "^4.2.0",
+    "save-dev": "^2.0.0"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ]
+}
