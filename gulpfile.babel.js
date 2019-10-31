@@ -39,6 +39,8 @@ const colors       = require('ansi-colors');
 const config       = require('./gulp.config');
 
 const merge        = require('merge-stream');
+const handlebars   = require('gulp-handlebars');
+const hb           = require('gulp-hb');
 
 // ---------------------------------------
 //   Config
@@ -53,6 +55,7 @@ const postCssPlugins = [
     autoprefixer({ cascade: false }),
     pxtorem()
   ];
+
 
 
 // ---------------------------------------
@@ -77,6 +80,30 @@ function onSassError(err) {
   })(err);
   this.emit('end');
 };
+
+
+
+
+// ---------------------------------------
+//   Compile template handelbars
+// ---------------------------------------
+// Compile template handelbars and output static html
+function template() {
+  return src(PATHS.src.template_pages)
+  .pipe(hb( { debug: false } )
+    .partials(PATHS.src.template_partials)
+    // .data({
+    //     title: 'dolor',
+    //     description: 'sit amet'
+    // })
+    // .data(PATHS.src.template_data)
+  )
+  .pipe(rename( { extname: '.html' } ))
+  .pipe(dest('./'))
+  // .pipe(browser.reload({ stream: true }));
+};
+
+
 
 // ---------------------------------------
 //   Minify Javascript
@@ -232,6 +259,8 @@ function watchFiles(){
   watch(PATHS.src.images, series(images, reload));
   watch(PATHS.src.svg, series(svg, reload));
   watch(PATHS.src.copy, series(copy, reload));
+  watch(PATHS.src.template_partials, series(template, reload));
+  watch(PATHS.src.template_pages, series(template, reload));
   watch(PATHS.src.html, reload);
 };
 
@@ -245,9 +274,10 @@ exports.images     = images;
 exports.svg        = svg;
 exports.clearCache = clearCache;
 exports.copy       = copy;
+exports.template   = template;
 exports.build      = series(clean, clearCache, parallel(styles, script, images, copy));
 exports.dev        = series(startServer, parallel(styles, script, images, copy), watchFiles);
-exports.default    = series(startServer, parallel(styles, script, images, svg), watchFiles);
+exports.default    = series(startServer, parallel(styles, script, images, svg, template), watchFiles);
 
 // task unused alone
 exports.clean      = clean;

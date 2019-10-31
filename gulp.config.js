@@ -14,18 +14,13 @@ const config = {
     dest_dir: DEST_DIR,
 
     src: {
-      // exclude js with underscore : `${SRC_DIR}js/**/[^_]*.js`
-      // js    : [`${SRC_DIR}js/zes6.js`,
-      //         'node_modules/babel-polyfill/dist/polyfill.js'],
       js    : [
               `${SRC_DIR}js/vendor/slick.min.js`,
               `${SRC_DIR}js/vendor/jquery.fancybox.min.js`,
               `${SRC_DIR}js/vendor/wow.min.js`,
               `${SRC_DIR}js/nav.js`,
-              // `${SRC_DIR}js/vendor/jquery.easing.min.js`,
-              // `${SRC_DIR}js/interface.js`,
               `${SRC_DIR}js/slider.js`,
-              // `${SRC_DIR}js/debug.js`
+              // `${SRC_DIR}js/interface.js`,
             ],
       css   : [`${SRC_DIR}scss/**/*.scss`],
       images: [`${SRC_DIR}images/**/*.{png,jpg,jpeg,gif,svg}`,
@@ -36,6 +31,9 @@ const config = {
                `${SRC_DIR}favicon/**/*`,
                // `${SRC_DIR}*.*`
              ],   // only files at the root of src folder
+      template_pages  : [`${SRC_DIR}template-pages/*.hbs`],
+      template_partials  : [`${SRC_DIR}template-partials/includes/_*.hbs`],
+      template_data  : [`${SRC_DIR}template-data/*.js`],
     },
 
     dest: {
