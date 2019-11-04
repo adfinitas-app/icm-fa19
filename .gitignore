@@ -3,3 +3,7 @@ template-parts/
 /node_modules
 src/
 inc/
+gulp.config.js
+gulpfile.babel.js
+package-lock.json
+package.json
