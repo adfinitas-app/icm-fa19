@@ -15,8 +15,10 @@ const config = {
 
     src: {
       js    : [
-              `${SRC_DIR}js/vendor/slick.min.js`,
+              `${SRC_DIR}js/vendor/jquery.min.js`,
+              `${SRC_DIR}js/vendor/jquery.easing.min.js`,
               `${SRC_DIR}js/vendor/jquery.fancybox.min.js`,
+              `${SRC_DIR}js/vendor/slick.min.js`,
               `${SRC_DIR}js/vendor/wow.min.js`,
               `${SRC_DIR}js/nav.js`,
               `${SRC_DIR}js/slider.js`,
