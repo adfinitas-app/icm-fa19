@@ -35,7 +35,7 @@ const config = {
              ],   // only files at the root of src folder
       template_pages  : [`${SRC_DIR}template-pages/*.hbs`],
       template_partials  : [`${SRC_DIR}template-partials/includes/_*.hbs`],
-      template_data  : [`${SRC_DIR}template-data/*.js`],
+      template_data  : [`${SRC_DIR}template-data/*.{json,js}`],
     },
 
     dest: {

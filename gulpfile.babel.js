@@ -92,15 +92,10 @@ function template() {
   return src(PATHS.src.template_pages)
   .pipe(hb( { debug: false } )
     .partials(PATHS.src.template_partials)
-    // .data({
-    //     title: 'dolor',
-    //     description: 'sit amet'
-    // })
-    // .data(PATHS.src.template_data)
+    .data(PATHS.src.template_data)
   )
   .pipe(rename( { extname: '.html' } ))
-  .pipe(dest('./'))
-  // .pipe(browser.reload({ stream: true }));
+  .pipe(dest('./'));
 };
 
 
@@ -261,6 +256,7 @@ function watchFiles(){
   watch(PATHS.src.copy, series(copy, reload));
   watch(PATHS.src.template_partials, series(template, reload));
   watch(PATHS.src.template_pages, series(template, reload));
+  watch(PATHS.src.template_data, series(template, reload));
   watch(PATHS.src.html, reload);
 };
 
