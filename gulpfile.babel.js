@@ -11,13 +11,14 @@ const server       = require('browser-sync').create();
 const sass         = require('gulp-sass');
 const postcss      = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
+const easings      = require('postcss-easings');
 const cleancss     = require('gulp-clean-css');
 const pxtorem      = require('postcss-pxtorem');
 const bulksass     = require('gulp-sass-bulk-import');
 
 const uglify       = require('gulp-uglify');
 const concat       = require('gulp-concat');
-const babel        = require('gulp-babel');
+// const babel        = require('gulp-babel');
 
 const imagemin     = require('gulp-imagemin');
     const cache        = require('gulp-cache');
@@ -46,14 +47,15 @@ const hb           = require('gulp-hb');
 //   Config
 // ---------------------------------------
 // CLI arguments ( --prod )
-const PROD = (argv.prod) ?  true : false;
+var PROD = (argv.prod) ?  true : false;
 
 // get paths from config file
 const PATHS = config.paths;
 
 const postCssPlugins = [
-    autoprefixer({ cascade: false }),
-    pxtorem()
+    // autoprefixer({ cascade: false }),
+    // pxtorem(),
+    require('postcss-easings')
   ];
 
 
@@ -124,7 +126,8 @@ function styles(){
   .pipe(bulksass())
   .pipe(plumber( { errorHandler: onSassError }))
   .pipe(sass( { outputStyle: 'compressed' }))
-  .pipe(gulpif(PROD, postcss(postCssPlugins)))
+  .pipe(postcss(postCssPlugins))
+  // .pipe(gulpif(PROD, postcss(postCssPlugins)))
   .pipe(gulpif(PROD, cleancss()))
   .pipe(rename( { suffix: '.min' }))
   .pipe(dest(PATHS.dest.css, { sourcemaps: (!PROD) ? 'maps' : false }))
@@ -158,10 +161,9 @@ function images(){
 function svg(){
   return src(PATHS.src.svg)
   // .pipe(svgmin())
-  // .pipe(svgmin({ js2svg: { pretty: true } }))
   .pipe(svgmin(
     function getOptions (file) {
-      // var prefix = path.basename(file.relative, path.extname(file.relative));
+      var prefix = path.basename(file.relative, path.extname(file.relative));
       // console.log(colors.bgMagentaBright("prefix ["+ prefix + "]"));
       return {
         plugins: [
@@ -217,6 +219,7 @@ function copy(){
 // ---------------------------------------
 // Clean out all files and folders from build folder
 function clean(){
+  PROD = true;
   return del(PATHS.dest_dir + '**/*');
 };
 
