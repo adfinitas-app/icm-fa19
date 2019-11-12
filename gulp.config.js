@@ -22,20 +22,19 @@ const config = {
               `${SRC_DIR}js/vendor/wow.min.js`,
               `${SRC_DIR}js/nav.js`,
               `${SRC_DIR}js/slider.js`,
-              // `${SRC_DIR}js/interface.js`,
             ],
       css   : [`${SRC_DIR}scss/**/*.scss`],
       images: [`${SRC_DIR}images/**/*.{png,jpg,jpeg,gif,svg}`,
               `!${SRC_DIR}images/icons/*.svg`],
       svg   : `${SRC_DIR}images/icons/*.svg`,
       html  : `${APP_DIR}**/*.{html,php}`,
-      copy  : [`${SRC_DIR}fonts/**/*`,
-               `${SRC_DIR}favicon/**/*`,
-               // `${SRC_DIR}*.*`
-             ],   // only files at the root of src folder
-      template_pages  : [`${SRC_DIR}template-pages/*.hbs`],
-      template_partials  : [`${SRC_DIR}template-partials/includes/_*.hbs`],
-      template_data  : [`${SRC_DIR}template-data/*.{json,js}`],
+      copy  : [`${SRC_DIR}favicon/**/*`,
+               `${SRC_DIR}medias/**/*`
+              ],
+      template_pages    : [`${SRC_DIR}templates/pages/*.hbs`],
+      template_partials : [`${SRC_DIR}templates/partials/includes/_*.hbs`],
+      template_datas    : [`${SRC_DIR}templates/datas/*.{json,js}`],
+      template          : [`${SRC_DIR}templates/**/*.{hbs,json,js}`],
     },
 
     dest: {

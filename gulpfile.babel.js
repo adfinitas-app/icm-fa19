@@ -60,30 +60,6 @@ const postCssPlugins = [
 
 
 
-// ---------------------------------------
-//   Error handlers
-// ---------------------------------------
-function onJSError(err) {
-  console.log('+++errrrror', err.toString());
-  notify.onError({
-    title  : "+++ JS error in " + err.plugin,
-    sound: "Pop",
-    message: "\n" + err.toString()
-  })(err);
-  this.emit('end');
-};
-
-function onSassError(err) {
-  console.log(colors.yellow('>err ') + 'errrrrrrrrror');
-  notify.onError({
-    title  : "+++ SASS error in " + err.plugin,
-    sound: "Pop",
-    message: "\n" + err.toString()
-  })(err);
-  this.emit('end');
-};
-
-
 
 
 // ---------------------------------------
@@ -92,12 +68,13 @@ function onSassError(err) {
 // Compile template handelbars and output static html
 function template() {
   return src(PATHS.src.template_pages)
+  .pipe(plumber( { errorHandler: onHbError }))
   .pipe(hb( { debug: false } )
     .partials(PATHS.src.template_partials)
-    .data(PATHS.src.template_data)
+    .data(PATHS.src.template_datas)
   )
   .pipe(rename( { extname: '.html' } ))
-  .pipe(dest('./'));
+  .pipe(dest(PATHS.app_dir));
 };
 
 
@@ -257,11 +234,49 @@ function watchFiles(){
   watch(PATHS.src.images, series(images, reload));
   watch(PATHS.src.svg, series(svg, reload));
   watch(PATHS.src.copy, series(copy, reload));
-  watch(PATHS.src.template_partials, series(template, reload));
-  watch(PATHS.src.template_pages, series(template, reload));
-  watch(PATHS.src.template_data, series(template, reload));
+  watch(PATHS.src.template, series(template, reload));
   watch(PATHS.src.html, reload);
 };
+
+
+
+
+// ---------------------------------------
+//   Error handlers
+// ---------------------------------------
+function onJSError(err) {
+  console.log(colors.yellow('----- onJSError \n'));
+  notify.onError({
+    title  : "___ JS error in " + err.plugin,
+    message: err.message,
+    // message: "\n" + err.toString(),
+    sound  : "Pop",
+  })(err);
+  this.emit('end');
+};
+
+function onSassError(err) {
+  console.log(colors.yellow('----- onSassError \n'));
+  notify.onError({
+    title  : "___ SASS error in " + err.plugin,
+    message: err.message,
+    // message: "\n" + err.toString(),
+    sound  : "Pop"
+  })(err);
+  this.emit('end');
+};
+
+function onHbError(err) {
+  console.log(colors.yellow('----- onHBError \n'));
+  notify.onError({
+    title  : "___ HB error in " + err.plugin,
+    message: err.message,
+    // message: "\n" + err.toString(),
+    sound  : "Pop"
+  })(err);
+  this.emit('end');
+};
+
 
 
 // ---------------------------------------
@@ -274,7 +289,7 @@ exports.svg        = svg;
 exports.clearCache = clearCache;
 exports.copy       = copy;
 exports.template   = template;
-exports.build      = series(clean, clearCache, parallel(styles, script, images, copy));
+exports.build      = series(clean, clearCache, parallel(styles, script, images, copy, svg, template));
 exports.dev        = series(startServer, parallel(styles, script, images, copy), watchFiles);
 exports.default    = series(startServer, parallel(styles, script, images, svg, template), watchFiles);
 
