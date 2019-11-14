@@ -1,8 +1,7 @@
 node_modules/
-template-parts/
 /node_modules
 src/
-inc/
+zold/
 gulp.config.js
 gulpfile.babel.js
 package-lock.json
