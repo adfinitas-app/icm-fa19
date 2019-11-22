@@ -53,9 +53,9 @@ var PROD = (argv.prod) ?  true : false;
 const PATHS = config.paths;
 
 const postCssPlugins = [
-    // autoprefixer({ cascade: false }),
-    // pxtorem(),
-    require('postcss-easings')
+    autoprefixer({ cascade: false }),
+    pxtorem(),
+    easings()
   ];
 
 
