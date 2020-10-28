@@ -1,4 +1,4 @@
-const PROXY     = 'http://localhost/ICM/www/';
+const PROXY     = 'http://local.decouvreursdespoir.fr';
 const APP_DIR   = './';
 const SRC_DIR   = 'src/';
 const DEST_DIR  = 'assets/';

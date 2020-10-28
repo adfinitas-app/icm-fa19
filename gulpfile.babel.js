@@ -158,8 +158,8 @@ function svg(){
         }
       }
     }))
+  .pipe(dest(PATHS.dest.svg))
 
-              .pipe(dest(PATHS.dest.svg))
   .pipe(svgstore( { inlineSvg: true } ))
   .pipe(rename( 'pack-icons.svg' ))
   .pipe(cheerio({
@@ -173,8 +173,14 @@ function svg(){
     },
     parserOptions: { xmlMode: true }
   }))
-  .pipe(dest(PATHS.dest.svg));
+  .pipe(dest(PATHS.dest.svg))
+
+  // embed svg symbols in handelbar partial
+  .pipe(rename( '_pack-icons.hbs' ))
+  .pipe(dest(PATHS.src_dir + 'templates/partials/includes/'))
 };
+
+
 
 
 // ---------------------------------------
